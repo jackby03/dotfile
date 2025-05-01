@@ -1,0 +1,49 @@
+* {
+    background-color: #0D0221;
+    text-color: #C084FC;
+    highlight-color: #8A2BE2;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    location: center;
+    width: 40%;
+    background-color: #0D0221;
+    border-radius: 10px;
+    border-color: #8A2BE2;
+    padding: 10px;
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    background-color: transparent;
+    padding: 5px;
+}
+
+entry {
+    text-color: #FF00FF;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+element {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+element-text {
+    text-color: #C084FC;
+}
+
+element.normal.normal {
+    background-color: transparent;
+    text-color: #C084FC;
+}
+
+element.selected.normal {
+    background-color: #FF00FF; /* fucsia */
+    text-color: #8A2BE2;       /* morado */
+}
+
