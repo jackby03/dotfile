@@ -79,7 +79,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/jzak/.config/awesome/default/theme.lua")
+beautiful.init(gears.filesystem.get_themes_dir() .. "/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -252,7 +252,7 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = tasklist_buttons,
 	})
 
-	-- {{{ Custom Bright Config
+	-- Custom Bright Config
 	function update_brightness()
 		awful.spawn.easy_async_with_shell("brightnessctl g && brightnessctl m", function(stdout)
 			local values = {}
@@ -282,9 +282,8 @@ awful.screen.connect_for_each_screen(function(s)
 			})
 		end)
 	end
-  -- }}}
 
-	-- {{{ Custom Volume Bar
+	-- Custom Volume Bar
 	local volume_widget = wibox.widget({
 		widget = wibox.widget.textbox,
 		align = "center",
@@ -316,7 +315,7 @@ awful.screen.connect_for_each_screen(function(s)
 		update_volume()
 	end)
 
-	-- }}} 
+	-- End Custom Volume Bar
 
 	-- Create the wibox
 	s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -495,7 +494,7 @@ globalkeys = gears.table.join(
 
 	-- Prompt
 	awful.key( {}, "XF86LaunchB", function() 
-		awful.util.spawn("rofi -show drun -theme ~/.config/rofi/spotlight.rasi") end,
+		awful.util.spawn("rofi -show drun") end,
 		{ description = "Abrir Spotlight (rofi)", group = "launcher" }
 	),
 
