@@ -43,6 +43,24 @@ This configuration is tailored specifically for the MacBook Air 2017, focusing o
 ## Installation (Arch Linux)
 
 ```bash
+
+# Install Necessary Codecs
+sudo pacman -S \
+    ffmpeg \
+    gst-libav \
+    gst-plugins-good \
+    gst-plugins-bad \
+    gst-plugins-ugly \
+    libva-utils \
+    libvdpau-va-gl
+
+# For Intel GPUs (Hardware Decoding)
+sudo pacman -S intel-media-sdk libva-intel-driver
+
+# Bonus: MPV for Smooth Local Playback
+sudo pacman -S mpv
+mpv --hwdec=vaapi --vo=gpu https://youtu.be/dQw4w9WgXcQ
+
 # Install core components
 sudo pacman -S awesome lua luarocks
 
