@@ -1,0 +1,13 @@
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[cursor]
+style = "Block"
+
+[font]
+normal = { family = "Hack Nerd Font", style="Regular" }
+size = 10
