@@ -67,8 +67,8 @@ sudo pacman -S awesome lua luarocks
 # Install essential utilities
 sudo pacman -S rofi picom feh scrot xclip
 
-# Install audio packages
-sudo pacman -S pulseaudio pavucontrol alsa-utils
+# Install audio packages (PipeWire)
+sudo pacman -S pipewire pipewire-pulse wireplumber pavucontrol alsa-utils
 
 # Install bluetooth packages
 sudo pacman -S bluez bluez-utils blueman

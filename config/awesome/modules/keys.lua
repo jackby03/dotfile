@@ -64,21 +64,22 @@ local global_keys = gears.table.join(
 		update_brightness()
 	end, { description = "Bajar brillo", group = "hardware" }),
 
-	-- Audio controls
+	-- Audio controls (PipeWire)
 	awful.key({}, "XF86AudioRaiseVolume", function()
-		awful.spawn("amixer -q set Master 5%+")
+		awful.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
 		update_volume()
 	end, { description = "Subir volumen", group = "audio" }),
 
 	awful.key({}, "XF86AudioLowerVolume", function()
-		awful.spawn("amixer -q set Master 5%-")
+		awful.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
 		update_volume()
 	end, { description = "Bajar volumen", group = "audio" }),
 
 	awful.key({}, "XF86AudioMute", function()
-		awful.spawn("amixer -q set Master toggle")
+		awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
 		update_volume()
 	end, { description = "Silenciar volumen", group = "audio" }),
+
 
 	awful.key({}, "XF86AudioPlay", function()
 		awful.spawn("playerctl play-pause")
