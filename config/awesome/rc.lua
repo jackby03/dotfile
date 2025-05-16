@@ -6,6 +6,7 @@ local beautiful = require("beautiful")
 
 -- Load awesome library
 local keys = require("modules.keys")
+root.keys(keys.globalkeys)
 
 -- Load core error handling and variable definitions
 require("modules.core")
@@ -31,5 +32,3 @@ require("modules.wibar")
 
 -- Optionally, autostart applications
 awful.spawn.with_shell("picom -b")
-
-root.keys(keys.globalkeys)

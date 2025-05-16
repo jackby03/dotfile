@@ -8,6 +8,6 @@ DST_DIR="$HOME/Downloads/dotfiles/config/awesome"
 mkdir -p "$DST_DIR"
 
 # Copiar todos los archivos y carpetas, preservando estructura y permisos, pero sin eliminar .git
-rsync -av --delete --exclude='.git/' "$SRC_DIR/" "$DST_DIR/"
+rsync -av --delete --ignore-times "$SRC_DIR/" "$DST_DIR/"
 
 echo "Copia completada de $SRC_DIR a $DST_DIR"
