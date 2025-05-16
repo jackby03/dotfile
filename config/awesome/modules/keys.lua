@@ -340,74 +340,60 @@ local global_keys = gears.table.join(
 -- =============================
 -- Client Key Bindings
 -- =============================
-M.clientkeys = gears.table.join(
+M.clientkeys = gears.table.join( 
     awful.key({ modkey }, "f",
         function(c)
             c.fullscreen = not c.fullscreen
-            if c.emit_signal then
-                c:emit_signal("request::activate", "key.unminimize", { raise = true })
-            else
-                c.minimized = false
-            end
+            c:raise()
         end,
         { description = "toggle fullscreen", group = "client" }),
 
     awful.key({ modkey, "Shift" }, "c",
         function(c) c:kill() end,
-        { description = "close window", group = "client" }),
+        { description = "close", group = "client" }),
 
-    awful.key({ modkey }, "space",
+    awful.key({ modkey, "Control" }, "space",
         awful.client.floating.toggle,
-        { description = "toggle floating mode", group = "client" }),
+        { description = "toggle floating", group = "client" }),
 
     awful.key({ modkey, "Control" }, "Return",
         function(c) c:swap(awful.client.getmaster()) end,
-        { description = "move to master position", group = "client" }),
+        { description = "move to master", group = "client" }),
 
     awful.key({ modkey }, "o",
         function(c) c:move_to_screen() end,
-        { description = "move to next screen", group = "client" }),
+        { description = "move to screen", group = "client" }),
 
     awful.key({ modkey }, "t",
         function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
 
     awful.key({ modkey }, "n",
-        function(c) c.minimized = true end,
-        { description = "minimize window", group = "client" }),
+        function(c)
+            c.minimized = true
+        end,
+        { description = "minimize", group = "client" }),
 
     awful.key({ modkey }, "m",
         function(c)
             c.maximized = not c.maximized
-            if c.emit_signal then
-                c:emit_signal("request::activate", "key.unminimize", { raise = true })
-            else
-                c.minimized = false
-            end
+            c:raise()
         end,
-        { description = "toggle maximize", group = "client" }),
+        { description = "(un)maximize", group = "client" }),
 
     awful.key({ modkey, "Control" }, "m",
         function(c)
             c.maximized_vertical = not c.maximized_vertical
-            if c.emit_signal then
-                c:emit_signal("request::activate", "key.unminimize", { raise = true })
-            else
-                c.minimized = false
-            end
+            c:raise()
         end,
-        { description = "toggle vertical maximize", group = "client" }),
+        { description = "(un)maximize vertically", group = "client" }),
 
     awful.key({ modkey, "Shift" }, "m",
         function(c)
             c.maximized_horizontal = not c.maximized_horizontal
-            if c.emit_signal then
-                c:emit_signal("request::activate", "key.unminimize", { raise = true })
-            else
-                c.minimized = false
-            end
+            c:raise()
         end,
-        { description = "toggle horizontal maximize", group = "client" })
+        { description = "(un)maximize horizontally", group = "client" })
 )
 
 -- =============================
