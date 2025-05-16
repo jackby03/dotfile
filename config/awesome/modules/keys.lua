@@ -55,15 +55,15 @@ local global_keys = gears.table.join(
 
     -- Volume controls
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn("pamixer -i 5")
+        awful.spawn("amixer set Master 5%+")
         update_volume()
     end, { description = "increase volume", group = "audio" }),
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn("pamixer -d 5")
+        awful.spawn("amixer set Master 5%-")
         update_volume()
     end, { description = "decrease volume", group = "audio" }),
     awful.key({}, "XF86AudioMute", function()
-        awful.spawn("pamixer -t")
+        awful.spawn("amixer set Master toggle")
         update_volume()
     end, { description = "mute volume", group = "audio" }),
 
@@ -123,6 +123,36 @@ global_keys = gears.table.join(
     awful.key({ modkey, "Control" }, "r", function()
         awesome.restart()
     end, { description = "reload awesome configuration", group = "awesome" })
+)
+
+-- Restaurar keybindings para cambiar entre clientes y mover clientes a tags
+global_keys = gears.table.join(
+    -- Cambiar entre clientes
+    awful.key({ modkey }, "Tab", function()
+        awful.client.focus.byidx(1)
+    end, { description = "focus next client", group = "client" }),
+
+    awful.key({ modkey, "Shift" }, "Tab", function()
+        awful.client.focus.byidx(-1)
+    end, { description = "focus previous client", group = "client" }),
+
+    -- Keybindings para tags (1-9)
+    awful.key({ modkey }, "#1", function()
+        local screen = awful.screen.focused()
+        local tag = screen.tags[1]
+        if tag then
+            tag:view_only()
+        end
+    end, { description = "view tag #1", group = "tag" }),
+
+    awful.key({ modkey, "Shift" }, "#1", function()
+        if client.focus then
+            local tag = client.focus.screen.tags[1]
+            if tag then
+                client.focus:move_to_tag(tag)
+            end
+        end
+    end, { description = "move focused client to tag #1", group = "tag" })
 )
 
 -- =============================
