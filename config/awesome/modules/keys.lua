@@ -416,82 +416,47 @@ M.clientkeys = gears.table.join(
 for i = 1, 9 do
     global_keys = gears.table.join(
         global_keys,
-        -- View tag
+        -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
             function()
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
                 if tag then
-                    -- Switch to the tag
                     tag:view_only()
-
-                    -- El foco será restaurado automáticamente por tag::history::update
-                    -- o property::selected signals
                 end
             end,
             { description = "view tag #" .. i, group = "tag" }),
 
-        -- Toggle tag
+        -- Toggle tag display.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
             function()
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
                 if tag then
-                    -- Toggle the tag visibility
                     awful.tag.viewtoggle(tag)
-
-                    -- Try to focus a client on the now-visible tag
-                    if tag.selected then
-                        local clients_on_tag = tag:clients()
-                        if #clients_on_tag > 0 then
-                            client.focus = clients_on_tag[1]
-                            client.focus:raise()
-                        end
-                    end
                 end
             end,
-            { description = "toggle view tag #" .. i, group = "tag" }),
+            { description = "toggle tag #" .. i, group = "tag" }),
 
-        -- Move client to tag
+        -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
             function()
                 if client.focus then
-                    local c = client.focus
-                    local tag = c.screen.tags[i]
+                    local tag = client.focus.screen.tags[i]
                     if tag then
-                        -- Registrar cliente en historial antes de moverlo
-                        if awful.client.focus.history and awful.client.focus.history.add then
-                            awful.client.focus.history.add(c)
-                        end
-
-                        -- Mover cliente al nuevo tag
-                        c:move_to_tag(tag)
-
-                        -- Seguir al cliente al nuevo tag
-                        tag:view_only()
-
-                        -- Enfocar el cliente en el nuevo tag
-                        client.focus = c
-                        c:raise()
+                        client.focus:move_to_tag(tag)
                     end
                 end
             end,
             { description = "move focused client to tag #" .. i, group = "tag" }),
 
-        -- Toggle client on tag
+        -- Toggle tag on focused client.
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
             function()
                 if client.focus then
-                    local c = client.focus
-                    local tag = c.screen.tags[i]
+                    local tag = client.focus.screen.tags[i]
                     if tag then
-                        -- Toggle the client on this tag
-                        c:toggle_tag(tag)
-
-                        -- If client is now on this tag, remember it
-                        if c:tags()[1] == tag then
-                            tag.last_client = c
-                        end
+                        client.focus:toggle_tag(tag)
                     end
                 end
             end,
