@@ -1,0 +1,31 @@
+Instalar dependecias de xorg:
+
+sudo pacman -S xorg-server xorg-xinput
+
+Ver que driver usa el trackpad:
+
+xinput list
+
+sample :
+⎜   ↳ Apple Inc. Apple Internal Keyboard / Trackpad    id=12   [slave  pointer  (2)]
+
+--- Activar tapping ---
+
+Crea un archivo:
+
+sudo nano /etc/X11/xorg.conf.d/40-libinput.conf
+
+Contenido de la configuracion:
+
+Section "InputClass"
+    Identifier "Apple Touchpad"
+    MatchProduct "bcm5974"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+    Option "ClickMethod" "clickfinger"
+    Option "DisableWhileTyping" "true"
+EndSection
+
+cierra session y vuelve a iniciar
